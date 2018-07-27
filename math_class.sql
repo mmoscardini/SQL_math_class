@@ -2,8 +2,8 @@ drop database if exists mat_geometria_2018;
 create database mat_geometria_2018;
 use mat_geometria_2018;
 
-create table matéria (
-    id int primary key auto_increment not null,
+create table materia (
+    codigo int primary key auto_increment not null,
     nome varchar(30),
     descrição text
 );
@@ -30,6 +30,9 @@ create table grupos (
     aluno_4 int,
     aluno_5 int
 );
+
+insert into materia (nome, descrição)
+value ('Matematica - Geometria', 'Matéria oferecida pelo departamento de matemática pura para alunos do primeiro colegial');
 
 insert into alunos (nome, idade, genero) 
 value ('Matheus', 13, 'H');
@@ -128,4 +131,22 @@ join
     (select nome, idade
     from alunos
     order by idade asc
-    limit 1) b;*/
+    limit 1) b;
+
+-- Definir notas
+declare projeto_1 decimal;
+declare projeto_2 decimal;
+declare projeto_3 decimal;
+
+projeto_1 = 8.0;
+projeto_2 = 10.0;
+projeto_3 = 8.5;
+
+update projetos 
+set nota = (case
+                when id = 1 then @projeto_1
+                when id = 2 then @projeto_2
+                when id = 3 then @projeto_3
+            end);
+
+select * from projetos;
